@@ -16,13 +16,13 @@
             <input type="number" name="revenue" step="0.01" required>
 
             <label>Debt-to-Income Ratio:</label>
-            <input type="number" name="dti_n" step="0.01" required>
+            <input type="number" name="dti_n" step="1" min="0" max="100" required>
 
             <label>FICO Score:</label>
-            <input type="number" name="fico_n" step="1" required>
+            <input type="number" name="fico_n" step="1" min="300" max="850" required>
 
             <label>Years of Experience:</label>
-            <input type="number" name="experience_c" step="1" required>
+            <input type="number" name="experience_c" step="1" min="1" max="50" required>
 
             <label>Employment Length:</label>
             <select name="emp_length" required>
