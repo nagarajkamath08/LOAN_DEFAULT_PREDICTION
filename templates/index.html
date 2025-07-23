@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Default Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Loan Default Prediction</h2>
+        <form action="/predict" method="POST">
+            <label>Loan Amount:</label>
+            <input type="number" name="loan_amnt" step="0.01" placeholder="" required>
+
+            <label>Annual Revenue:</label>
+            <input type="number" name="revenue" step="0.01" required>
+
+            <label>Debt-to-Income Ratio:</label>
+            <input type="number" name="dti_n" step="0.01" required>
+
+            <label>FICO Score:</label>
+            <input type="number" name="fico_n" step="1" required>
+
+            <label>Years of Experience:</label>
+            <input type="number" name="experience_c" step="1" required>
+
+            <label>Employment Length:</label>
+            <select name="emp_length" required>
+                {% for year in range(1, 11) %}
+                <option value="{{ year }} years">{{ year }} years</option>
+                {% endfor %}
+                <option value="10+ years">10+ years</option>
+            </select>
+
+            <label>Purpose of Loan:</label>
+            <select name="purpose" required>
+                <option value="debt_consolidation">Debt Consolidation</option>
+                <option value="home_improvement">Home Improvement</option>
+                <option value="credit_card">Credit Card</option>
+                <option value="major_purchase">Major Purchase</option>
+            </select>
+
+            <label>Home Ownership:</label>
+            <select name="home_ownership_n" required>
+                <option value="MORTGAGE">Mortgage</option>
+                <option value="RENT">Rent</option>
+                <option value="OWN">Own</option>
+            </select>
+
+            <label>State:</label>
+            <select name="addr_state" required>
+                <option value="CA">California</option>
+                <option value="NY">New York</option>
+                <option value="TX">Texas</option>
+                <option value="FL">Florida</option>
+                <option value="IL">Illinois</option>
+            </select>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <p>{{ prediction_text }}</p>
+                <button class="popup-button" onclick="closePopup()">Close</button>
+            </div>
+        </div>
+        <script>
+            document.getElementById("popup").style.display = "block";
+            function closePopup() {
+                document.getElementById("popup").style.display = "none";
+            }
+        </script>
+        {% endif %}
+    </div>
+</body>
+</html>
